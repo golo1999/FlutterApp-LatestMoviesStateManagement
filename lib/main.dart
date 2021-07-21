@@ -4,6 +4,7 @@ import 'package:http/http.dart';
 import 'package:latest_movies_state_management/src/actions/index.dart';
 import 'package:latest_movies_state_management/src/data/movies_api.dart';
 import 'package:latest_movies_state_management/src/epics/app_epics.dart';
+import 'package:latest_movies_state_management/src/models/app_data.dart';
 import 'package:latest_movies_state_management/src/models/index.dart';
 import 'package:latest_movies_state_management/src/presentation/index.dart';
 import 'package:latest_movies_state_management/src/reducer/reducer.dart';
@@ -42,12 +43,12 @@ class YtsMovies extends StatelessWidget {
       child: MaterialApp(
         home: const HomePage(),
         routes: <String, WidgetBuilder>{
-          '/details': (BuildContext context) {
+          detailsRoute: (BuildContext context) {
             return const MovieDetails();
           },
-          'show_image': (BuildContext context) {
+          showImageRoute: (BuildContext context) {
             return const MovieImage();
-          }
+          },
         },
         debugShowCheckedModeBanner: false,
       ),

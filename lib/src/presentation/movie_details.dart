@@ -39,7 +39,6 @@ class MovieDetails extends StatelessWidget {
                     ),
                     onTap: () {
                       StoreProvider.of<AppState>(context).dispatch(SetSelectedMovie(movie.id));
-                      //Navigator.pushNamed(context, '/show_image');
                       Navigator.push<void>(
                         context,
                         MaterialPageRoute<void>(
