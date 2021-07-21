@@ -1,37 +1,36 @@
-import 'package:json_annotation/json_annotation.dart';
+part of models;
 
-part 'torrent.g.dart';
+abstract class Torrent implements Built<Torrent, TorrentBuilder> {
+  factory Torrent([void Function(TorrentBuilder b) updates]) = _$Torrent;
 
-@JsonSerializable()
-class Torrent {
-  Torrent(this.url, this.hash, this.quality, this.type, this.seeds, this.peers,
-      this.size, this.sizeBytes, this.dateUploaded, this.dateUploadedUnix);
+  factory Torrent.fromJson(dynamic json) => serializers.deserializeWith(serializer, json)!;
 
-  factory Torrent.fromJson(Map<String, dynamic> data) =>
-      _$TorrentFromJson(data);
+  Torrent._();
 
-  Map<String, dynamic> toJson() => _$TorrentToJson(this);
+  String get url;
 
-  String url;
+  String get hash;
 
-  String hash;
+  String get quality;
 
-  String quality;
+  String get type;
 
-  String type;
+  int get seeds;
 
-  int seeds;
+  int get peers;
 
-  int peers;
+  String get size;
 
-  String size;
+  @BuiltValueField(wireName: 'size_bytes')
+  int get sizeBytes;
 
-  @JsonKey(name: 'size_byes')
-  int sizeBytes;
+  @BuiltValueField(wireName: 'date_uploaded')
+  String get dateUploaded;
 
-  @JsonKey(name: 'date_uploaded')
-  String dateUploaded;
+  @BuiltValueField(wireName: 'date_uploaded_unix')
+  int get dateUploadedUnix;
 
-  @JsonKey(name: 'date_uploaded_unix')
-  int dateUploadedUnix;
+  Map<String, dynamic> get json => serializers.serializeWith(serializer, this)! as Map<String, dynamic>;
+
+  static Serializer<Torrent> get serializer => _$torrentSerializer;
 }

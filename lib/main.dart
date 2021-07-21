@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart';
-import 'package:latest_movies_state_management/src/actions/get_movies.dart';
+import 'package:latest_movies_state_management/src/actions/index.dart';
 import 'package:latest_movies_state_management/src/data/movies_api.dart';
-import 'package:latest_movies_state_management/src/middleware/middleware.dart';
-import 'package:latest_movies_state_management/src/models/app_state.dart';
-import 'package:latest_movies_state_management/src/presentation/home_page.dart';
-import 'package:latest_movies_state_management/src/presentation/movie_details.dart';
-import 'package:latest_movies_state_management/src/presentation/movie_image.dart';
+import 'package:latest_movies_state_management/src/epics/app_epics.dart';
+import 'package:latest_movies_state_management/src/models/index.dart';
+import 'package:latest_movies_state_management/src/presentation/index.dart';
 import 'package:latest_movies_state_management/src/reducer/reducer.dart';
 import 'package:redux/redux.dart';
+import 'package:redux_epics/redux_epics.dart';
 
 void main() {
-  const String apiURL = 'https://yts.mx/api/v2';
   final Client client = Client();
-  final MoviesAPI moviesAPI = MoviesAPI(apiURL: apiURL, client: client);
-  final MoviesMiddleware moviesMiddleware =
-      MoviesMiddleware(moviesAPI: moviesAPI);
+
+  final MoviesAPI moviesAPI = MoviesAPI(client: client);
+
+  final AppEpics appEpics = AppEpics(moviesAPI);
+
   final Store<AppState> store = Store<AppState>(
     reducer,
     initialState: AppState(),
-    middleware: moviesMiddleware.middleware,
+    middleware: <Middleware<AppState>>[
+      EpicMiddleware<AppState>(appEpics.epics),
+    ],
   );
 
-  store.dispatch(GetMovies());
+  store.dispatch(const GetMovies());
 
   runApp(YtsMovies(store: store));
 }
@@ -38,7 +40,7 @@ class YtsMovies extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
-        home: HomePage(),
+        home: const HomePage(),
         routes: <String, WidgetBuilder>{
           '/details': (BuildContext context) {
             return const MovieDetails();

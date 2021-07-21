@@ -1,11 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:latest_movies_state_management/src/actions/set.dart';
-import 'package:latest_movies_state_management/src/container/movies_container.dart';
-import 'package:latest_movies_state_management/src/models/app_data.dart';
-import 'package:latest_movies_state_management/src/models/app_state.dart';
-import 'package:latest_movies_state_management/src/models/movie.dart';
+part of presentations;
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -36,6 +29,7 @@ class HomePage extends StatelessWidget {
                 ),
                 itemBuilder: (BuildContext context, int index) {
                   final Movie movie = moviesList[index];
+
                   return GestureDetector(
                     child: GridTile(
                       child: Image.network(
@@ -50,24 +44,13 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      StoreProvider.of<AppState>(context)
-                          .dispatch(SetSelectedMovie(movie.id));
+                      StoreProvider.of<AppState>(context).dispatch(SetSelectedMovie(movie.id));
                       Navigator.pushNamed(context, '/details');
                     },
                   );
                 },
                 itemCount: moviesList.length,
               );
-              // return ListView.builder(
-              //   itemCount: moviesList.length,
-              //   itemBuilder: (BuildContext context, int index) {
-              //     final Movie movie = moviesList[index];
-              //
-              //     return ListTile(
-              //       title: Text(movie.titleLong),
-              //     );
-              //   },
-              // );
             },
           ),
         );

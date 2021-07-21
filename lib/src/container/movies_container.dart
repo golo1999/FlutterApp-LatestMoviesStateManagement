@@ -1,8 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:latest_movies_state_management/src/models/app_state.dart';
-import 'package:latest_movies_state_management/src/models/movie.dart';
-import 'package:redux/redux.dart';
+part of containers;
 
 class MoviesContainer extends StatelessWidget {
   const MoviesContainer({Key? key, required this.builder}) : super(key: key);
@@ -12,7 +8,7 @@ class MoviesContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, List<Movie>>(
-      converter: (Store<AppState> store) => store.state.movieList.asList(),
+      converter: (Store<AppState> store) => store.state.movieList.toList(),
       builder: builder,
     );
   }

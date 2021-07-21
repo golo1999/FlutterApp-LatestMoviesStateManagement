@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/services.dart';
-
-import 'movie.dart';
+import 'package:latest_movies_state_management/src/models/index.dart';
 
 const String applicationTitle = 'Latest movies';
 const Color primaryColor = Color(0xff101820);

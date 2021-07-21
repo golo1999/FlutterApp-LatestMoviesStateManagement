@@ -1,107 +1,78 @@
-import 'package:json_annotation/json_annotation.dart';
+part of models;
 
-part 'movie.g.dart';
+abstract class Movie implements Built<Movie, MovieBuilder> {
+  factory Movie([void Function(MovieBuilder b) updates]) = _$Movie;
 
-@JsonSerializable(explicitToJson: true)
-class Movie {
-  Movie(
-      this.id,
-      this.url,
-      this.imdbCode,
-      this.title,
-      this.titleEnglish,
-      this.titleLong,
-      this.slug,
-      this.year,
-      this.rating,
-      this.runtime,
-      this.genres,
-      this.summary,
-      this.descriptionFull,
-      this.synopsis,
-      this.ytTrailerCode,
-      this.language,
-      this.mpaRating,
-      this.backgroundImage,
-      this.backgroundImageOriginal,
-      this.smallCoverImage,
-      this.mediumCoverImage,
-      this.largeCoverImage,
-      this.state,
-      this.torrents,
-      this.dateUploaded,
-      this.dateUploadedUnix);
+  factory Movie.fromJson(dynamic json) => serializers.deserializeWith(serializer, json)!;
 
-  factory Movie.fromJson(Map<String, dynamic> data) => _$MovieFromJson(data);
-
-  Map<String, dynamic> toJson() => _$MovieToJson(this);
+  Movie._();
 
   static const num maxRating = 10;
 
-  int id;
+  int get id;
 
-  String url;
+  String get url;
 
-  @JsonKey(name: 'imdb_code')
-  String imdbCode;
+  @BuiltValueField(wireName: 'imdb_code')
+  String get imdbCode;
 
-  String title;
+  String get title;
 
-  @JsonKey(name: 'title_english')
-  String titleEnglish;
+  @BuiltValueField(wireName: 'title_english')
+  String get titleEnglish;
 
-  @JsonKey(name: 'title_long')
-  String titleLong;
+  @BuiltValueField(wireName: 'title_long')
+  String get titleLong;
 
-  String slug;
+  String get slug;
 
-  int year;
+  int get year;
 
-  num rating;
+  num get rating;
 
-  int runtime;
+  int get runtime;
 
-  List<dynamic> genres;
+  BuiltList<String> get genres;
 
-  String summary;
+  String get summary;
 
-  @JsonKey(name: 'description_full')
-  String descriptionFull;
+  @BuiltValueField(wireName: 'description_full')
+  String get descriptionFull;
 
-  String synopsis;
+  String get synopsis;
 
-  @JsonKey(name: 'yt_trailer_code')
-  String ytTrailerCode;
+  @BuiltValueField(wireName: 'yt_trailer_code')
+  String get ytTrailerCode;
 
-  String language;
+  String get language;
 
-  @JsonKey(name: 'mpa_rating')
-  String mpaRating;
+  @BuiltValueField(wireName: 'mpa_rating')
+  String get mpaRating;
 
-  @JsonKey(name: 'background_image')
-  String backgroundImage;
+  @BuiltValueField(wireName: 'background_image')
+  String get backgroundImage;
 
-  @JsonKey(name: 'background_image_original')
-  String backgroundImageOriginal;
+  @BuiltValueField(wireName: 'background_image_original')
+  String get backgroundImageOriginal;
 
-  @JsonKey(name: 'small_cover_image')
-  String smallCoverImage;
+  @BuiltValueField(wireName: 'small_cover_image')
+  String get smallCoverImage;
 
-  @JsonKey(name: 'medium_cover_image')
-  String mediumCoverImage;
+  @BuiltValueField(wireName: 'medium_cover_image')
+  String get mediumCoverImage;
 
-  @JsonKey(name: 'large_cover_image')
-  String largeCoverImage;
+  @BuiltValueField(wireName: 'large_cover_image')
+  String get largeCoverImage;
 
-  String state;
+  String get state;
 
-  List<dynamic> torrents;
+  BuiltList<Torrent> get torrents;
 
-  @JsonKey(name: 'date_uploaded')
-  String dateUploaded;
+  @BuiltValueField(wireName: 'date_uploaded')
+  String get dateUploaded;
 
-  @JsonKey(name: 'date_uploaded_unix')
-  int dateUploadedUnix;
+  @BuiltValueField(wireName: 'date_uploaded_unix')
+  int get dateUploadedUnix;
 
   dynamic showGenres() {
     final int numberOfGenres = genres.length;
@@ -121,27 +92,28 @@ class Movie {
   String showAvailableQualities() {
     final int numberOfAvailableQualities = torrents.length;
     String availableQualitiesListed = '';
-    final List<dynamic> torrentList = torrents;
+    final BuiltList<Torrent> torrentList = torrents;
 
-    for (int qualityIndex = 0;
-        qualityIndex < numberOfAvailableQualities;
-        ++qualityIndex) {
-      final dynamic torrent = torrentList[qualityIndex];
-      final dynamic torrentQuality = torrent['quality'];
-      final String torrentType = torrent['type'] == 'bluray'
+    for (int qualityIndex = 0; qualityIndex < numberOfAvailableQualities; ++qualityIndex) {
+      final Torrent torrent = torrentList[qualityIndex];
+      final String torrentQuality = torrent.quality;
+      final String torrentType = torrent.type == 'bluray'
           ? 'BluRay'
-          : torrent['type'] == 'web'
+          : torrent.type == 'web'
               ? 'Web'
               : '';
 
       availableQualitiesListed += torrentQuality.toString() + '.' + torrentType;
 
-      if (qualityIndex < numberOfAvailableQualities - 1)
+      if (qualityIndex < numberOfAvailableQualities - 1) {
         availableQualitiesListed += ' / ';
+      }
     }
 
-    return numberOfAvailableQualities > 0
-        ? 'Available in: ' + availableQualitiesListed
-        : availableQualitiesListed;
+    return numberOfAvailableQualities > 0 ? ('Available in: ' + availableQualitiesListed) : availableQualitiesListed;
   }
+
+  Map<String, dynamic> get json => serializers.serializeWith(serializer, this)! as Map<String, dynamic>;
+
+  static Serializer<Movie> get serializer => _$movieSerializer;
 }

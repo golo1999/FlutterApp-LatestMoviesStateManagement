@@ -1,15 +1,11 @@
-import 'package:latest_movies_state_management/src/models/movie.dart';
+part of actions;
 
-class GetMovies {}
+@freezed
+class GetMovies with _$GetMovies implements AppAction {
+  const factory GetMovies() = GetMoviesStart;
 
-class GetMoviesSuccessful {
-  GetMoviesSuccessful(this.movieList);
+  const factory GetMovies.successful(List<Movie> moviesList) = GetMoviesSuccessful;
 
-  final List<Movie> movieList;
-}
-
-class GetMoviesError {
-  GetMoviesError(this.error);
-
-  final Object error;
+  @Implements(ErrorAction)
+  const factory GetMovies.error(Object error, StackTrace stackTrace) = GetMoviesError;
 }

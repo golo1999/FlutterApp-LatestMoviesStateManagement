@@ -1,15 +1,4 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:latest_movies_state_management/src/actions/set.dart';
-import 'package:latest_movies_state_management/src/container/selected_movie_container.dart';
-import 'package:latest_movies_state_management/src/models/app_data.dart';
-import 'package:latest_movies_state_management/src/models/app_state.dart';
-import 'package:latest_movies_state_management/src/models/movie.dart';
-import 'package:latest_movies_state_management/src/presentation/movie_image.dart';
+part of presentations;
 
 class MovieDetails extends StatelessWidget {
   const MovieDetails({Key? key}) : super(key: key);
@@ -49,12 +38,11 @@ class MovieDetails extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      StoreProvider.of<AppState>(context)
-                          .dispatch(SetSelectedMovie(movie.id));
+                      StoreProvider.of<AppState>(context).dispatch(SetSelectedMovie(movie.id));
                       //Navigator.pushNamed(context, '/show_image');
-                      Navigator.push<Void>(
+                      Navigator.push<void>(
                         context,
-                        MaterialPageRoute<Void>(
+                        MaterialPageRoute<void>(
                           builder: (BuildContext context) {
                             return const MovieImage();
                           },
@@ -81,9 +69,8 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: data.size.width * 0.015,
-                        horizontal: data.size.width * 0.025),
+                    padding:
+                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
                     child: Text(
                       movie.showGenres().toString(),
                       textAlign: TextAlign.start,
@@ -95,9 +82,8 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: data.size.width * 0.015,
-                        horizontal: data.size.width * 0.025),
+                    padding:
+                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
                     child: Text(
                       movie.showAvailableQualities(),
                       textAlign: TextAlign.start,
@@ -109,14 +95,12 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: data.size.width * 0.015,
-                        horizontal: data.size.width * 0.025),
+                    padding:
+                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
                     child: Row(
                       children: <Widget>[
                         RatingBarIndicator(
-                          itemBuilder: (BuildContext context, int index) =>
-                              const Icon(
+                          itemBuilder: (BuildContext context, int index) => const Icon(
                             Icons.star,
                             color: secondaryColor,
                           ),
@@ -129,9 +113,7 @@ class MovieDetails extends StatelessWidget {
                             horizontal: 10,
                           ),
                           child: Text(
-                            movie.rating.toString() +
-                                '/' +
-                                Movie.maxRating.toString(),
+                            movie.rating.toString() + '/' + Movie.maxRating.toString(),
                             style: TextStyle(
                               color: whiteColor,
                               fontSize: data.size.width * 0.05,
@@ -142,9 +124,8 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: data.size.width * 0.015,
-                        horizontal: data.size.width * 0.025),
+                    padding:
+                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
