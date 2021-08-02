@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "298857313681",
+    "project_id": "latestmoviesflutterapp",
+    "storage_bucket": "latestmoviesflutterapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298857313681:android:eebe5e5a5643d121dc1630",
+        "android_client_info": {
+          "package_name": "com.example.latest_movies_state_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "298857313681-pph6jkdoqab2tms7408864qf3t626kju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKPMVTu3vqR_HodE7hJLE8C89kwOJoHW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "298857313681-pph6jkdoqab2tms7408864qf3t626kju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

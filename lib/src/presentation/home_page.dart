@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
       builder: (BuildContext context, List<Movie> moviesList) {
         return Scaffold(
           appBar: AppBar(
+            leading: const UserAvatar(),
             title: const Text(
               applicationTitle,
               style: TextStyle(

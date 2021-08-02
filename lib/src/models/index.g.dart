@@ -7,7 +7,9 @@ part of models;
 // **************************************************************************
 
 Serializer<AppState> _$appStateSerializer = new _$AppStateSerializer();
+Serializer<AppUser> _$appUserSerializer = new _$AppUserSerializer();
 Serializer<Movie> _$movieSerializer = new _$MovieSerializer();
+Serializer<Review> _$reviewSerializer = new _$ReviewSerializer();
 Serializer<Torrent> _$torrentSerializer = new _$TorrentSerializer();
 
 class _$AppStateSerializer implements StructuredSerializer<AppState> {
@@ -20,12 +22,23 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
   Iterable<Object?> serialize(Serializers serializers, AppState object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
-      'movieList',
-      serializers.serialize(object.movieList,
+      'moviesList',
+      serializers.serialize(object.moviesList,
           specifiedType:
               const FullType(BuiltList, const [const FullType(Movie)])),
+      'reviewsList',
+      serializers.serialize(object.reviewsList,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(Review)])),
     ];
     Object? value;
+    value = object.user;
+    if (value != null) {
+      result
+        ..add('user')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(AppUser)));
+    }
     value = object.selectedMovieId;
     if (value != null) {
       result
@@ -46,15 +59,89 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'movieList':
-          result.movieList.replace(serializers.deserialize(value,
+        case 'user':
+          result.user.replace(serializers.deserialize(value,
+              specifiedType: const FullType(AppUser))! as AppUser);
+          break;
+        case 'moviesList':
+          result.moviesList.replace(serializers.deserialize(value,
                   specifiedType:
                       const FullType(BuiltList, const [const FullType(Movie)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'reviewsList':
+          result.reviewsList.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Review)]))!
               as BuiltList<Object?>);
           break;
         case 'selectedMovieId':
           result.selectedMovieId = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$AppUserSerializer implements StructuredSerializer<AppUser> {
+  @override
+  final Iterable<Type> types = const [AppUser, _$AppUser];
+  @override
+  final String wireName = 'AppUser';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, AppUser object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object?>[
+      'uid',
+      serializers.serialize(object.uid, specifiedType: const FullType(String)),
+      'username',
+      serializers.serialize(object.username,
+          specifiedType: const FullType(String)),
+      'email',
+      serializers.serialize(object.email,
+          specifiedType: const FullType(String)),
+    ];
+    Object? value;
+    value = object.photoUrl;
+    if (value != null) {
+      result
+        ..add('photoUrl')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  AppUser deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new AppUserBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'uid':
+          result.uid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'username':
+          result.username = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'email':
+          result.email = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'photoUrl':
+          result.photoUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
       }
     }
@@ -278,6 +365,25 @@ class _$MovieSerializer implements StructuredSerializer<Movie> {
   }
 }
 
+class _$ReviewSerializer implements StructuredSerializer<Review> {
+  @override
+  final Iterable<Type> types = const [Review, _$Review];
+  @override
+  final String wireName = 'Review';
+
+  @override
+  Iterable<Object?> serialize(Serializers serializers, Review object,
+      {FullType specifiedType = FullType.unspecified}) {
+    return <Object?>[];
+  }
+
+  @override
+  Review deserialize(Serializers serializers, Iterable<Object?> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    return new ReviewBuilder().build();
+  }
+}
+
 class _$TorrentSerializer implements StructuredSerializer<Torrent> {
   @override
   final Iterable<Type> types = const [Torrent, _$Torrent];
@@ -377,15 +483,26 @@ class _$TorrentSerializer implements StructuredSerializer<Torrent> {
 
 class _$AppState extends AppState {
   @override
-  final BuiltList<Movie> movieList;
+  final AppUser? user;
+  @override
+  final BuiltList<Movie> moviesList;
+  @override
+  final BuiltList<Review> reviewsList;
   @override
   final int? selectedMovieId;
 
   factory _$AppState([void Function(AppStateBuilder)? updates]) =>
       (new AppStateBuilder()..update(updates)).build();
 
-  _$AppState._({required this.movieList, this.selectedMovieId}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(movieList, 'AppState', 'movieList');
+  _$AppState._(
+      {this.user,
+      required this.moviesList,
+      required this.reviewsList,
+      this.selectedMovieId})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(moviesList, 'AppState', 'moviesList');
+    BuiltValueNullFieldError.checkNotNull(
+        reviewsList, 'AppState', 'reviewsList');
   }
 
   @override
@@ -399,19 +516,26 @@ class _$AppState extends AppState {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AppState &&
-        movieList == other.movieList &&
+        user == other.user &&
+        moviesList == other.moviesList &&
+        reviewsList == other.reviewsList &&
         selectedMovieId == other.selectedMovieId;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, movieList.hashCode), selectedMovieId.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, user.hashCode), moviesList.hashCode),
+            reviewsList.hashCode),
+        selectedMovieId.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('AppState')
-          ..add('movieList', movieList)
+          ..add('user', user)
+          ..add('moviesList', moviesList)
+          ..add('reviewsList', reviewsList)
           ..add('selectedMovieId', selectedMovieId))
         .toString();
   }
@@ -420,10 +544,21 @@ class _$AppState extends AppState {
 class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   _$AppState? _$v;
 
-  ListBuilder<Movie>? _movieList;
-  ListBuilder<Movie> get movieList =>
-      _$this._movieList ??= new ListBuilder<Movie>();
-  set movieList(ListBuilder<Movie>? movieList) => _$this._movieList = movieList;
+  AppUserBuilder? _user;
+  AppUserBuilder get user => _$this._user ??= new AppUserBuilder();
+  set user(AppUserBuilder? user) => _$this._user = user;
+
+  ListBuilder<Movie>? _moviesList;
+  ListBuilder<Movie> get moviesList =>
+      _$this._moviesList ??= new ListBuilder<Movie>();
+  set moviesList(ListBuilder<Movie>? moviesList) =>
+      _$this._moviesList = moviesList;
+
+  ListBuilder<Review>? _reviewsList;
+  ListBuilder<Review> get reviewsList =>
+      _$this._reviewsList ??= new ListBuilder<Review>();
+  set reviewsList(ListBuilder<Review>? reviewsList) =>
+      _$this._reviewsList = reviewsList;
 
   int? _selectedMovieId;
   int? get selectedMovieId => _$this._selectedMovieId;
@@ -435,7 +570,9 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   AppStateBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _movieList = $v.movieList.toBuilder();
+      _user = $v.user?.toBuilder();
+      _moviesList = $v.moviesList.toBuilder();
+      _reviewsList = $v.reviewsList.toBuilder();
       _selectedMovieId = $v.selectedMovieId;
       _$v = null;
     }
@@ -459,18 +596,143 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
     try {
       _$result = _$v ??
           new _$AppState._(
-              movieList: movieList.build(), selectedMovieId: selectedMovieId);
+              user: _user?.build(),
+              moviesList: moviesList.build(),
+              reviewsList: reviewsList.build(),
+              selectedMovieId: selectedMovieId);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'movieList';
-        movieList.build();
+        _$failedField = 'user';
+        _user?.build();
+        _$failedField = 'moviesList';
+        moviesList.build();
+        _$failedField = 'reviewsList';
+        reviewsList.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'AppState', _$failedField, e.toString());
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$AppUser extends AppUser {
+  @override
+  final String uid;
+  @override
+  final String username;
+  @override
+  final String email;
+  @override
+  final String? photoUrl;
+
+  factory _$AppUser([void Function(AppUserBuilder)? updates]) =>
+      (new AppUserBuilder()..update(updates)).build();
+
+  _$AppUser._(
+      {required this.uid,
+      required this.username,
+      required this.email,
+      this.photoUrl})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(uid, 'AppUser', 'uid');
+    BuiltValueNullFieldError.checkNotNull(username, 'AppUser', 'username');
+    BuiltValueNullFieldError.checkNotNull(email, 'AppUser', 'email');
+  }
+
+  @override
+  AppUser rebuild(void Function(AppUserBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  AppUserBuilder toBuilder() => new AppUserBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is AppUser &&
+        uid == other.uid &&
+        username == other.username &&
+        email == other.email &&
+        photoUrl == other.photoUrl;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc($jc($jc(0, uid.hashCode), username.hashCode), email.hashCode),
+        photoUrl.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('AppUser')
+          ..add('uid', uid)
+          ..add('username', username)
+          ..add('email', email)
+          ..add('photoUrl', photoUrl))
+        .toString();
+  }
+}
+
+class AppUserBuilder implements Builder<AppUser, AppUserBuilder> {
+  _$AppUser? _$v;
+
+  String? _uid;
+  String? get uid => _$this._uid;
+  set uid(String? uid) => _$this._uid = uid;
+
+  String? _username;
+  String? get username => _$this._username;
+  set username(String? username) => _$this._username = username;
+
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
+
+  String? _photoUrl;
+  String? get photoUrl => _$this._photoUrl;
+  set photoUrl(String? photoUrl) => _$this._photoUrl = photoUrl;
+
+  AppUserBuilder();
+
+  AppUserBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _uid = $v.uid;
+      _username = $v.username;
+      _email = $v.email;
+      _photoUrl = $v.photoUrl;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(AppUser other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$AppUser;
+  }
+
+  @override
+  void update(void Function(AppUserBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$AppUser build() {
+    final _$result = _$v ??
+        new _$AppUser._(
+            uid: BuiltValueNullFieldError.checkNotNull(uid, 'AppUser', 'uid'),
+            username: BuiltValueNullFieldError.checkNotNull(
+                username, 'AppUser', 'username'),
+            email: BuiltValueNullFieldError.checkNotNull(
+                email, 'AppUser', 'email'),
+            photoUrl: photoUrl);
     replace(_$result);
     return _$result;
   }
@@ -936,6 +1198,60 @@ class MovieBuilder implements Builder<Movie, MovieBuilder> {
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$Review extends Review {
+  factory _$Review([void Function(ReviewBuilder)? updates]) =>
+      (new ReviewBuilder()..update(updates)).build();
+
+  _$Review._() : super._();
+
+  @override
+  Review rebuild(void Function(ReviewBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ReviewBuilder toBuilder() => new ReviewBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is Review;
+  }
+
+  @override
+  int get hashCode {
+    return 769192592;
+  }
+
+  @override
+  String toString() {
+    return newBuiltValueToStringHelper('Review').toString();
+  }
+}
+
+class ReviewBuilder implements Builder<Review, ReviewBuilder> {
+  _$Review? _$v;
+
+  ReviewBuilder();
+
+  @override
+  void replace(Review other) {
+    ArgumentError.checkNotNull(other, 'other');
+    _$v = other as _$Review;
+  }
+
+  @override
+  void update(void Function(ReviewBuilder)? updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$Review build() {
+    final _$result = _$v ?? new _$Review._();
     replace(_$result);
     return _$result;
   }

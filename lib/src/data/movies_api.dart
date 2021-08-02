@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart';
 import 'package:latest_movies_state_management/src/models/index.dart';
 
 class MoviesAPI {
-  const MoviesAPI({required Client client}) : _httpClient = client;
+  const MoviesAPI({required FirebaseFirestore firestore, required Client client})
+      : _firestore = firestore,
+        _httpClient = client;
 
+  final FirebaseFirestore _firestore;
   final Client _httpClient;
 
   Future<List<Movie>> getMovies() async {
@@ -31,4 +35,18 @@ class MoviesAPI {
 
     return responseList;
   }
+
+  // Future<void> createReview({required String uid, required int movieId, required String text}) async {
+  //   final DocumentReference<Map<String, dynamic>> documentReference = _firestore.collection('reviews').doc();
+  //
+  //   final Review review = Review(
+  //     id: documentReference.id,
+  //     uid: uid,
+  //     movieId: movieId,
+  //     text: text,
+  //     createdAt: DateTime.now().toUtc(),
+  //   );
+  //
+  //   await documentReference.set(review.json);
+  // }
 }

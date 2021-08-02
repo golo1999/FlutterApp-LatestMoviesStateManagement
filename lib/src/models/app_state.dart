@@ -7,7 +7,11 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   AppState._();
 
-  BuiltList<Movie> get movieList;
+  AppUser? get user;
+
+  BuiltList<Movie> get moviesList;
+
+  BuiltList<Review> get reviewsList;
 
   int? get selectedMovieId;
 

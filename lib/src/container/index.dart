@@ -6,4 +6,6 @@ import 'package:latest_movies_state_management/src/models/index.dart';
 import 'package:redux/redux.dart';
 
 part 'movies_container.dart';
+part 'reviews_container.dart';
 part 'selected_movie_container.dart';
+part 'user_container.dart';

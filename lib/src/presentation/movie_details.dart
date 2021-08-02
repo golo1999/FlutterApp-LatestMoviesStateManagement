@@ -38,7 +38,9 @@ class MovieDetails extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      StoreProvider.of<AppState>(context).dispatch(SetSelectedMovie(movie.id));
+                      StoreProvider.of<AppState>(context).dispatch(
+                        SetSelectedMovie(movie.id),
+                      );
                       Navigator.push<void>(
                         context,
                         MaterialPageRoute<void>(
@@ -68,8 +70,10 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
+                    padding: EdgeInsets.symmetric(
+                      vertical: data.size.width * 0.015,
+                      horizontal: data.size.width * 0.025,
+                    ),
                     child: Text(
                       movie.showGenres().toString(),
                       textAlign: TextAlign.start,
@@ -81,8 +85,10 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
+                    padding: EdgeInsets.symmetric(
+                      vertical: data.size.width * 0.015,
+                      horizontal: data.size.width * 0.025,
+                    ),
                     child: Text(
                       movie.showAvailableQualities(),
                       textAlign: TextAlign.start,
@@ -94,8 +100,10 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
+                    padding: EdgeInsets.symmetric(
+                      vertical: data.size.width * 0.015,
+                      horizontal: data.size.width * 0.025,
+                    ),
                     child: Row(
                       children: <Widget>[
                         RatingBarIndicator(
@@ -123,8 +131,10 @@ class MovieDetails extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: data.size.width * 0.015, horizontal: data.size.width * 0.025),
+                    padding: EdgeInsets.symmetric(
+                      vertical: data.size.width * 0.015,
+                      horizontal: data.size.width * 0.025,
+                    ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.stretch,

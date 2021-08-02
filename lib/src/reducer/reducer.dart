@@ -13,6 +13,9 @@ Reducer<AppState> reducer = combineReducers(
     TypedReducer<AppState, GetMoviesSuccessful>(_getMoviesSuccessful),
     TypedReducer<AppState, GetMoviesError>(_getMoviesError),
     TypedReducer<AppState, SetSelectedMovie>(_setSelectedMovie),
+    TypedReducer<AppState, RegisterUser>(_registerUser),
+    TypedReducer<AppState, RegisterUserSuccessful>(_registerUserSuccessful),
+    TypedReducer<AppState, RegisterUserError>(_registerUserError),
   ],
 );
 
@@ -25,7 +28,7 @@ AppState _getMovies(AppState state, GetMovies action) {
 AppState _getMoviesSuccessful(AppState state, GetMoviesSuccessful action) {
   return state.rebuild(
     (AppStateBuilder builder) {
-      builder.movieList = ListBuilder<Movie>(action.moviesList);
+      builder.moviesList = ListBuilder<Movie>(action.moviesList);
     },
   );
 }
@@ -42,4 +45,18 @@ AppState _setSelectedMovie(AppState state, SetSelectedMovie action) {
       builder.selectedMovieId = action.movieId;
     },
   );
+}
+
+AppState _registerUser(AppState state, RegisterUser action) {
+  return state.rebuild((AppStateBuilder builder) {});
+}
+
+AppState _registerUserSuccessful(AppState state, RegisterUserSuccessful action) {
+  return state.rebuild((AppStateBuilder builder) {
+    builder.user = action.user.toBuilder();
+  });
+}
+
+AppState _registerUserError(AppState state, RegisterUserError action) {
+  return state.rebuild((AppStateBuilder builder) {});
 }
