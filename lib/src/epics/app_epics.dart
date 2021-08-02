@@ -1,6 +1,5 @@
 import 'package:latest_movies_state_management/src/actions/index.dart';
-import 'package:latest_movies_state_management/src/data/auth_api.dart';
-import 'package:latest_movies_state_management/src/data/movies_api.dart';
+import 'package:latest_movies_state_management/src/data/index.dart';
 import 'package:latest_movies_state_management/src/models/index.dart';
 import 'package:redux_epics/redux_epics.dart';
 import 'package:rxdart/rxdart.dart';

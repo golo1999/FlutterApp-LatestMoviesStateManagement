@@ -1,8 +1,4 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:http/http.dart';
-import 'package:latest_movies_state_management/src/models/index.dart';
+part of datas;
 
 class MoviesAPI {
   const MoviesAPI({required FirebaseFirestore firestore, required Client client})

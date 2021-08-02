@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:latest_movies_state_management/src/models/index.dart';
+part of datas;
 
 class AuthAPI {
   AuthAPI({required FirebaseAuth auth, required FirebaseFirestore firestore})
