@@ -6,6 +6,7 @@ import 'package:latest_movies_state_management/src/models/index.dart';
 part 'serializers.g.dart';
 
 @SerializersFor(<Type>[
+  AppState,
   Movie,
 ])
 Serializers serializers = (_$serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();

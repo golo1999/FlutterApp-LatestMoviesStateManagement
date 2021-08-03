@@ -16,6 +16,12 @@ Reducer<AppState> reducer = combineReducers(
     TypedReducer<AppState, RegisterUser>(_registerUser),
     TypedReducer<AppState, RegisterUserSuccessful>(_registerUserSuccessful),
     TypedReducer<AppState, RegisterUserError>(_registerUserError),
+    TypedReducer<AppState, SignOutUser>(_signOutUser),
+    TypedReducer<AppState, SignOutUserSuccessful>(_signOutUserSuccessful),
+    TypedReducer<AppState, SignOutUserError>(_signOutUserError),
+    TypedReducer<AppState, InitializeApp>(_initializeApp),
+    TypedReducer<AppState, InitializeAppSuccessful>(_initializeAppSuccessful),
+    TypedReducer<AppState, InitializeAppError>(_initializeAppError),
   ],
 );
 
@@ -59,4 +65,38 @@ AppState _registerUserSuccessful(AppState state, RegisterUserSuccessful action) 
 
 AppState _registerUserError(AppState state, RegisterUserError action) {
   return state.rebuild((AppStateBuilder builder) {});
+}
+
+AppState _signOutUser(AppState state, SignOutUser action) {
+  return state.rebuild((AppStateBuilder builder) {});
+}
+
+AppState _signOutUserSuccessful(AppState state, SignOutUserSuccessful action) {
+  return state.rebuild((AppStateBuilder builder) {
+    builder.user = null;
+  });
+}
+
+AppState _signOutUserError(AppState state, SignOutUserError action) {
+  return state.rebuild((AppStateBuilder builder) {});
+}
+
+AppState _initializeApp(AppState state, InitializeApp action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
+  );
+}
+
+AppState _initializeAppSuccessful(AppState state, InitializeAppSuccessful action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {
+      builder.user = action.user?.toBuilder();
+    },
+  );
+}
+
+AppState _initializeAppError(AppState state, InitializeAppError action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
+  );
 }

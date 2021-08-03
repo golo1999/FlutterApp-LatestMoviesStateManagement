@@ -6,13 +6,8 @@ import 'package:built_value/serializer.dart';
 import 'package:latest_movies_state_management/src/models/serializers.dart';
 
 part 'app_state.dart';
-
 part 'app_user.dart';
-
 part 'index.g.dart';
-
 part 'movie.dart';
-
 part 'review.dart';
-
 part 'torrent.dart';

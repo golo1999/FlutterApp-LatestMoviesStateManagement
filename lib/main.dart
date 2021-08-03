@@ -41,7 +41,9 @@ Future<void> main() async {
     ],
   );
 
-  store.dispatch(const GetMovies());
+  store //
+    ..dispatch(const InitializeApp())
+    ..dispatch(const GetMovies());
 
   runApp(YtsMovies(store: store));
 }

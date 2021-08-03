@@ -25,24 +25,26 @@ class UserAvatar extends StatelessWidget {
               ),
             ),
           );
-        }
-
-        return GestureDetector(
-          onTap: () {
-            print('A');
-          },
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundColor: secondaryColor,
-              child: Text(
-                // user.username[0].toUpperCase(),
-                'A',
-                style: TextStyle(color: primaryColor),
+        } else {
+          return GestureDetector(
+            onTap: () {
+              StoreProvider.of<AppState>(context).dispatch(
+                const SignOutUser(),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                backgroundColor: secondaryColor,
+                child: Text(
+                  // user.username[0].toUpperCase(),
+                  user.username[0].toUpperCase(),
+                  style: const TextStyle(color: primaryColor),
+                ),
               ),
             ),
-          ),
-        );
+          );
+        }
       },
     );
   }

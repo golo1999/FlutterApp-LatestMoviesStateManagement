@@ -11,6 +11,18 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  void _onResult(AppAction action) {
+    if (action is ErrorAction) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${action.error}'),
+        ),
+      );
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final MediaQueryData data = MediaQuery.of(context);
@@ -110,30 +122,24 @@ class _LoginPageState extends State<LoginPage> {
                       cursorColor: whiteColor,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 32.0,
-                      horizontal: 16.0,
-                    ),
-                    child: Builder(
-                      builder: (BuildContext context) {
-                        return OutlinedButton(
+                  Builder(
+                    builder: (BuildContext context) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 32.0,
+                          horizontal: 16.0,
+                        ),
+                        child: OutlinedButton(
                           onPressed: () {
-                            if (context == null) {
-                              print('null context');
-                            }
-
                             if (!Form.of(context)!.validate()) {
-                              print('null');
                               return;
                             }
 
-                            StoreProvider.of<AppState>(context).dispatch(
-                              RegisterUser(
-                                _emailController.text.trim(),
-                                _passwordController.text,
-                              ),
-                            );
+                            StoreProvider.of<AppState>(context).dispatch(RegisterUser(
+                              _emailController.text.trim(),
+                              _passwordController.text,
+                              _onResult,
+                            ));
                           },
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(
@@ -146,9 +152,9 @@ class _LoginPageState extends State<LoginPage> {
                               color: whiteColor,
                             ),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

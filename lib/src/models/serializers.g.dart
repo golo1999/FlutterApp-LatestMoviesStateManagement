@@ -7,8 +7,17 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(AppState.serializer)
+      ..add(AppUser.serializer)
       ..add(Movie.serializer)
+      ..add(Review.serializer)
       ..add(Torrent.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Movie)]),
+          () => new ListBuilder<Movie>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(Review)]),
+          () => new ListBuilder<Review>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

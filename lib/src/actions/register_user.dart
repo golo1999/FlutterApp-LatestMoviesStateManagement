@@ -2,7 +2,7 @@ part of actions;
 
 @freezed
 class RegisterUser with _$RegisterUser implements AppAction {
-  const factory RegisterUser(String email, String password) = RegisterUserStart;
+  const factory RegisterUser(String email, String password, ActionResult result) = RegisterUserStart;
 
   const factory RegisterUser.successful(AppUser user) = RegisterUserSuccessful;
 
