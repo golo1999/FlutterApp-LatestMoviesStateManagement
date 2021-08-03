@@ -17,6 +17,7 @@ class AppEpics {
       <Epic<AppState>>[
         TypedEpic<AppState, CreateReviewStart>(_createReview),
         TypedEpic<AppState, GetMoviesStart>(_getMovies),
+        TypedEpic<AppState, GetReviewsStart>(_getReviews),
         TypedEpic<AppState, InitializeAppStart>(_initializeApp),
         TypedEpic<AppState, RegisterUserStart>(_registerUser),
         TypedEpic<AppState, SignOutUserStart>(_signOutUser),
@@ -38,16 +39,19 @@ class AppEpics {
   }
 
   Stream<AppAction> _getMovies(Stream<GetMoviesStart> actions, EpicStore<AppState> store) {
-    // return actions //
-    //     .asyncMap((GetMoviesStart action) => _moviesAPI.getMovies())
-    //     .map((List<Movie> moviesList) => GetMovies.successful(moviesList))
-    //     .onErrorReturnWith((Object error, StackTrace stackTrace) => GetMoviesError(error, stackTrace));
-
     return actions //
         .flatMap((GetMoviesStart action) => Stream<void>.value(null)
             .asyncMap((_) => _moviesAPI.getMovies())
             .map((List<Movie> moviesList) => GetMovies.successful(moviesList))
             .onErrorReturnWith((Object error, StackTrace stackTrace) => GetMoviesError(error, stackTrace)));
+  }
+
+  Stream<AppAction> _getReviews(Stream<GetReviewsStart> actions, EpicStore<AppState> store) {
+    return actions //
+        .flatMap((GetReviewsStart action) => Stream<void>.value(null)
+            .asyncMap((_) => _moviesAPI.getReviews(store.state.selectedMovieId!))
+            .map((List<Review> reviews) => GetReviews.successful(reviews))
+            .onErrorReturnWith((Object error, StackTrace stackTrace) => GetReviews.error(error, stackTrace)));
   }
 
   Stream<AppAction> _initializeApp(Stream<InitializeAppStart> actions, EpicStore<AppState> store) {

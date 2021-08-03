@@ -45,7 +45,10 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      StoreProvider.of<AppState>(context).dispatch(SetSelectedMovie(movie.id));
+                      StoreProvider.of<AppState>(context)
+                        ..dispatch(SetSelectedMovie(movie.id))
+                        ..dispatch(const GetReviews());
+
                       Navigator.pushNamed(context, detailsRoute);
                     },
                   );

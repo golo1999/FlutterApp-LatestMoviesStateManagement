@@ -33,7 +33,7 @@ class UserAvatar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
-                backgroundColor: secondaryColor,
+                backgroundColor: whiteColor,
                 child: Text(
                   user.username[0].toUpperCase(),
                   style: const TextStyle(color: primaryColor),

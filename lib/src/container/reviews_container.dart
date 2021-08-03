@@ -1,7 +1,7 @@
 part of containers;
 
-class ReviewContainer extends StatelessWidget {
-  const ReviewContainer({Key? key, required this.builder}) : super(key: key);
+class ReviewsContainer extends StatelessWidget {
+  const ReviewsContainer({Key? key, required this.builder}) : super(key: key);
 
   final ViewModelBuilder<List<Review>> builder;
 

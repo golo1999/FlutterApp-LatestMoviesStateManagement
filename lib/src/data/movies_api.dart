@@ -45,4 +45,25 @@ class MoviesAPI {
 
     await documentReference.set(review.json);
   }
+
+  Future<List<Review>> getReviews(int movieId) async {
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore //
+        .collection('reviews')
+        .where('movieID', isEqualTo: movieId)
+        .get();
+
+    print('snap:' + snapshot.docs.toString());
+
+    final List<Review> reviewsList = snapshot.docs //
+        .map((QueryDocumentSnapshot<Map<String, dynamic>> doc) => Review.fromJson(doc.data()))
+        .toList();
+
+    print(reviewsList);
+
+    for (final Review review in reviewsList) {
+      print('review from list:' + review.toString());
+    }
+
+    return reviewsList;
+  }
 }

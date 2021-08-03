@@ -12,16 +12,19 @@ Reducer<AppState> reducer = combineReducers(
     TypedReducer<AppState, GetMovies>(_getMovies),
     TypedReducer<AppState, GetMoviesSuccessful>(_getMoviesSuccessful),
     TypedReducer<AppState, GetMoviesError>(_getMoviesError),
+    TypedReducer<AppState, GetReviews>(_getReviews),
+    TypedReducer<AppState, GetReviewsSuccessful>(_getReviewsSuccessful),
+    TypedReducer<AppState, GetReviewsError>(_getReviewsError),
     TypedReducer<AppState, SetSelectedMovie>(_setSelectedMovie),
+    TypedReducer<AppState, InitializeApp>(_initializeApp),
+    TypedReducer<AppState, InitializeAppSuccessful>(_initializeAppSuccessful),
+    TypedReducer<AppState, InitializeAppError>(_initializeAppError),
     TypedReducer<AppState, RegisterUser>(_registerUser),
     TypedReducer<AppState, RegisterUserSuccessful>(_registerUserSuccessful),
     TypedReducer<AppState, RegisterUserError>(_registerUserError),
     TypedReducer<AppState, SignOutUser>(_signOutUser),
     TypedReducer<AppState, SignOutUserSuccessful>(_signOutUserSuccessful),
     TypedReducer<AppState, SignOutUserError>(_signOutUserError),
-    TypedReducer<AppState, InitializeApp>(_initializeApp),
-    TypedReducer<AppState, InitializeAppSuccessful>(_initializeAppSuccessful),
-    TypedReducer<AppState, InitializeAppError>(_initializeAppError),
   ],
 );
 
@@ -45,11 +48,53 @@ AppState _getMoviesError(AppState state, GetMoviesError action) {
   );
 }
 
+AppState _getReviews(AppState state, GetReviews action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
+  );
+}
+
+AppState _getReviewsSuccessful(AppState state, GetReviewsSuccessful action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {
+      builder.reviewsList //
+        ..clear()
+        ..addAll(action.reviewsList);
+    },
+  );
+}
+
+AppState _getReviewsError(AppState state, GetReviewsError action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
+  );
+}
+
 AppState _setSelectedMovie(AppState state, SetSelectedMovie action) {
   return state.rebuild(
     (AppStateBuilder builder) {
       builder.selectedMovieId = action.movieId;
     },
+  );
+}
+
+AppState _initializeApp(AppState state, InitializeApp action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
+  );
+}
+
+AppState _initializeAppSuccessful(AppState state, InitializeAppSuccessful action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {
+      builder.user = action.user?.toBuilder();
+    },
+  );
+}
+
+AppState _initializeAppError(AppState state, InitializeAppError action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
   );
 }
 
@@ -79,24 +124,4 @@ AppState _signOutUserSuccessful(AppState state, SignOutUserSuccessful action) {
 
 AppState _signOutUserError(AppState state, SignOutUserError action) {
   return state.rebuild((AppStateBuilder builder) {});
-}
-
-AppState _initializeApp(AppState state, InitializeApp action) {
-  return state.rebuild(
-    (AppStateBuilder builder) {},
-  );
-}
-
-AppState _initializeAppSuccessful(AppState state, InitializeAppSuccessful action) {
-  return state.rebuild(
-    (AppStateBuilder builder) {
-      builder.user = action.user?.toBuilder();
-    },
-  );
-}
-
-AppState _initializeAppError(AppState state, InitializeAppError action) {
-  return state.rebuild(
-    (AppStateBuilder builder) {},
-  );
 }

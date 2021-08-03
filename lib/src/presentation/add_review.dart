@@ -46,6 +46,8 @@ class _AddReviewPageState extends State<AddReviewPage> {
                     StoreProvider.of<AppState>(context).dispatch(CreateReview(
                       _reviewController.text.trim(),
                     ));
+
+                    Navigator.pop(context);
                   },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(
