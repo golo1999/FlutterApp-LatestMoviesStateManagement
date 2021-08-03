@@ -15,12 +15,39 @@ class AppEpics {
   Epic<AppState> get epics {
     return combineEpics<AppState>(
       <Epic<AppState>>[
-        TypedEpic<AppState, InitializeAppStart>(_initializeApp),
+        TypedEpic<AppState, CreateReviewStart>(_createReview),
         TypedEpic<AppState, GetMoviesStart>(_getMovies),
+        TypedEpic<AppState, InitializeAppStart>(_initializeApp),
         TypedEpic<AppState, RegisterUserStart>(_registerUser),
         TypedEpic<AppState, SignOutUserStart>(_signOutUser),
       ],
     );
+  }
+
+  Stream<AppAction> _createReview(Stream<CreateReviewStart> actions, EpicStore<AppState> store) {
+    return actions //
+        .asyncMap((CreateReviewStart action) {
+          return _moviesAPI.createReview(
+            uid: store.state.user!.uid,
+            movieId: store.state.selectedMovieId!,
+            text: action.text,
+          );
+        })
+        .map((_) => const CreateReview.successful())
+        .onErrorReturnWith((Object error, StackTrace stackTrace) => CreateReview.error(error, stackTrace));
+  }
+
+  Stream<AppAction> _getMovies(Stream<GetMoviesStart> actions, EpicStore<AppState> store) {
+    // return actions //
+    //     .asyncMap((GetMoviesStart action) => _moviesAPI.getMovies())
+    //     .map((List<Movie> moviesList) => GetMovies.successful(moviesList))
+    //     .onErrorReturnWith((Object error, StackTrace stackTrace) => GetMoviesError(error, stackTrace));
+
+    return actions //
+        .flatMap((GetMoviesStart action) => Stream<void>.value(null)
+            .asyncMap((_) => _moviesAPI.getMovies())
+            .map((List<Movie> moviesList) => GetMovies.successful(moviesList))
+            .onErrorReturnWith((Object error, StackTrace stackTrace) => GetMoviesError(error, stackTrace)));
   }
 
   Stream<AppAction> _initializeApp(Stream<InitializeAppStart> actions, EpicStore<AppState> store) {
@@ -28,13 +55,6 @@ class AppEpics {
         .asyncMap((InitializeAppStart action) => _authAPI.getCurrentUser())
         .map((AppUser? user) => InitializeApp.successful(user))
         .onErrorReturnWith((Object error, StackTrace stackTrace) => InitializeApp.error(error, stackTrace));
-  }
-
-  Stream<AppAction> _getMovies(Stream<GetMoviesStart> actions, EpicStore<AppState> store) {
-    return actions //
-        .asyncMap((GetMoviesStart action) => _moviesAPI.getMovies())
-        .map((List<Movie> moviesList) => GetMovies.successful(moviesList))
-        .onErrorReturnWith((Object error, StackTrace stackTrace) => GetMoviesError(error, stackTrace));
   }
 
   Stream<AppAction> _registerUser(Stream<RegisterUserStart> actions, EpicStore<AppState> store) {

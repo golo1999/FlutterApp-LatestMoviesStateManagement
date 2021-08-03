@@ -114,9 +114,9 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       validator: (String? value) {
                         return (value == null || value.isEmpty)
-                            ? 'Please enter your password.'
+                            ? 'Please enter your password'
                             : (value.length < 6)
-                                ? 'Please enter a longer password.'
+                                ? 'Please enter a longer password'
                                 : null;
                       },
                       cursorColor: whiteColor,

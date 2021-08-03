@@ -3,6 +3,7 @@ library actions;
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:latest_movies_state_management/src/models/index.dart';
 
+part 'create_review.dart';
 part 'get_movies.dart';
 part 'get_reviews.dart';
 part 'index.freezed.dart';

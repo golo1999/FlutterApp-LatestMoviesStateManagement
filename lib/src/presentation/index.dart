@@ -9,6 +9,7 @@ import 'package:latest_movies_state_management/src/container/index.dart';
 import 'package:latest_movies_state_management/src/models/app_data.dart';
 import 'package:latest_movies_state_management/src/models/index.dart';
 
+part 'add_review.dart';
 part 'home_page.dart';
 part 'login_page.dart';
 part 'movie_details.dart';

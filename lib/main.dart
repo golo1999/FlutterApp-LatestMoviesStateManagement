@@ -21,7 +21,10 @@ Future<void> main() async {
 
   final Client client = Client();
 
-  final MoviesAPI moviesAPI = MoviesAPI(firestore: FirebaseFirestore.instance, client: client);
+  final MoviesAPI moviesAPI = MoviesAPI(
+    firestore: FirebaseFirestore.instance,
+    client: client,
+  );
 
   final AuthAPI authAPI = AuthAPI(
     auth: FirebaseAuth.instance,
@@ -60,6 +63,9 @@ class YtsMovies extends StatelessWidget {
       child: MaterialApp(
         home: const HomePage(),
         routes: <String, WidgetBuilder>{
+          addReviewRoute: (BuildContext context) {
+            return const AddReviewPage();
+          },
           detailsRoute: (BuildContext context) {
             return const MovieDetails();
           },

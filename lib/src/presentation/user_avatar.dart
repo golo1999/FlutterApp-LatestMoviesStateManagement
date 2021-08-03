@@ -8,8 +8,6 @@ class UserAvatar extends StatelessWidget {
     return UserContainer(
       builder: (BuildContext context, AppUser? user) {
         if (user == null) {
-          //Navigator.pushNamed(context, loginRoute);
-
           return GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, loginRoute);
@@ -37,7 +35,6 @@ class UserAvatar extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: secondaryColor,
                 child: Text(
-                  // user.username[0].toUpperCase(),
                   user.username[0].toUpperCase(),
                   style: const TextStyle(color: primaryColor),
                 ),

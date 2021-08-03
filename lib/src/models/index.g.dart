@@ -374,13 +374,58 @@ class _$ReviewSerializer implements StructuredSerializer<Review> {
   @override
   Iterable<Object?> serialize(Serializers serializers, Review object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object?>[];
+    final result = <Object?>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'uid',
+      serializers.serialize(object.uid, specifiedType: const FullType(String)),
+      'movieId',
+      serializers.serialize(object.movieId, specifiedType: const FullType(int)),
+      'text',
+      serializers.serialize(object.text, specifiedType: const FullType(String)),
+      'createdAt',
+      serializers.serialize(object.createdAt,
+          specifiedType: const FullType(DateTime)),
+    ];
+
+    return result;
   }
 
   @override
   Review deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return new ReviewBuilder().build();
+    final result = new ReviewBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final Object? value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'uid':
+          result.uid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'movieId':
+          result.movieId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'text':
+          result.text = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'createdAt':
+          result.createdAt = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+      }
+    }
+
+    return result.build();
   }
 }
 
@@ -1204,10 +1249,33 @@ class MovieBuilder implements Builder<Movie, MovieBuilder> {
 }
 
 class _$Review extends Review {
+  @override
+  final String id;
+  @override
+  final String uid;
+  @override
+  final int movieId;
+  @override
+  final String text;
+  @override
+  final DateTime createdAt;
+
   factory _$Review([void Function(ReviewBuilder)? updates]) =>
       (new ReviewBuilder()..update(updates)).build();
 
-  _$Review._() : super._();
+  _$Review._(
+      {required this.id,
+      required this.uid,
+      required this.movieId,
+      required this.text,
+      required this.createdAt})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, 'Review', 'id');
+    BuiltValueNullFieldError.checkNotNull(uid, 'Review', 'uid');
+    BuiltValueNullFieldError.checkNotNull(movieId, 'Review', 'movieId');
+    BuiltValueNullFieldError.checkNotNull(text, 'Review', 'text');
+    BuiltValueNullFieldError.checkNotNull(createdAt, 'Review', 'createdAt');
+  }
 
   @override
   Review rebuild(void Function(ReviewBuilder) updates) =>
@@ -1219,24 +1287,71 @@ class _$Review extends Review {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Review;
+    return other is Review &&
+        id == other.id &&
+        uid == other.uid &&
+        movieId == other.movieId &&
+        text == other.text &&
+        createdAt == other.createdAt;
   }
 
   @override
   int get hashCode {
-    return 769192592;
+    return $jf($jc(
+        $jc($jc($jc($jc(0, id.hashCode), uid.hashCode), movieId.hashCode),
+            text.hashCode),
+        createdAt.hashCode));
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('Review').toString();
+    return (newBuiltValueToStringHelper('Review')
+          ..add('id', id)
+          ..add('uid', uid)
+          ..add('movieId', movieId)
+          ..add('text', text)
+          ..add('createdAt', createdAt))
+        .toString();
   }
 }
 
 class ReviewBuilder implements Builder<Review, ReviewBuilder> {
   _$Review? _$v;
 
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _uid;
+  String? get uid => _$this._uid;
+  set uid(String? uid) => _$this._uid = uid;
+
+  int? _movieId;
+  int? get movieId => _$this._movieId;
+  set movieId(int? movieId) => _$this._movieId = movieId;
+
+  String? _text;
+  String? get text => _$this._text;
+  set text(String? text) => _$this._text = text;
+
+  DateTime? _createdAt;
+  DateTime? get createdAt => _$this._createdAt;
+  set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
+
   ReviewBuilder();
+
+  ReviewBuilder get _$this {
+    final $v = _$v;
+    if ($v != null) {
+      _id = $v.id;
+      _uid = $v.uid;
+      _movieId = $v.movieId;
+      _text = $v.text;
+      _createdAt = $v.createdAt;
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(Review other) {
@@ -1251,7 +1366,15 @@ class ReviewBuilder implements Builder<Review, ReviewBuilder> {
 
   @override
   _$Review build() {
-    final _$result = _$v ?? new _$Review._();
+    final _$result = _$v ??
+        new _$Review._(
+            id: BuiltValueNullFieldError.checkNotNull(id, 'Review', 'id'),
+            uid: BuiltValueNullFieldError.checkNotNull(uid, 'Review', 'uid'),
+            movieId: BuiltValueNullFieldError.checkNotNull(
+                movieId, 'Review', 'movieId'),
+            text: BuiltValueNullFieldError.checkNotNull(text, 'Review', 'text'),
+            createdAt: BuiltValueNullFieldError.checkNotNull(
+                createdAt, 'Review', 'createdAt'));
     replace(_$result);
     return _$result;
   }

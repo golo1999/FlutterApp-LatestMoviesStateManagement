@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:latest_movies_state_management/src/models/index.dart';
 
 const String applicationTitle = 'Latest movies';
+const String addReviewRoute = '/add_review';
 const String detailsRoute = '/details';
 const String loginRoute = '/login';
 const String showImageRoute = '/show_image';

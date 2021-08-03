@@ -32,17 +32,17 @@ class MoviesAPI {
     return responseList;
   }
 
-  // Future<void> createReview({required String uid, required int movieId, required String text}) async {
-  //   final DocumentReference<Map<String, dynamic>> documentReference = _firestore.collection('reviews').doc();
-  //
-  //   final Review review = Review(
-  //     id: documentReference.id,
-  //     uid: uid,
-  //     movieId: movieId,
-  //     text: text,
-  //     createdAt: DateTime.now().toUtc(),
-  //   );
-  //
-  //   await documentReference.set(review.json);
-  // }
+  Future<void> createReview({required String uid, required int movieId, required String text}) async {
+    final DocumentReference<Map<String, dynamic>> documentReference = _firestore.collection('reviews').doc();
+
+    final Review review = Review(
+      id: documentReference.id,
+      uid: uid,
+      movieId: movieId,
+      text: text,
+      createdAt: DateTime.now().toUtc(),
+    );
+
+    await documentReference.set(review.json);
+  }
 }

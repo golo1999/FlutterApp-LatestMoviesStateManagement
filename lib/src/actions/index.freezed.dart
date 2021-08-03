@@ -13,6 +13,426 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+class _$CreateReviewTearOff {
+  const _$CreateReviewTearOff();
+
+  CreateReviewStart call(String text) {
+    return CreateReviewStart(
+      text,
+    );
+  }
+
+  CreateReviewSuccessful successful() {
+    return const CreateReviewSuccessful();
+  }
+
+  CreateReviewError error(Object error, StackTrace stackTrace) {
+    return CreateReviewError(
+      error,
+      stackTrace,
+    );
+  }
+}
+
+/// @nodoc
+const $CreateReview = _$CreateReviewTearOff();
+
+/// @nodoc
+mixin _$CreateReview {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String text) $default, {
+    required TResult Function() successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String text)? $default, {
+    TResult Function()? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(CreateReviewStart value) $default, {
+    required TResult Function(CreateReviewSuccessful value) successful,
+    required TResult Function(CreateReviewError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(CreateReviewStart value)? $default, {
+    TResult Function(CreateReviewSuccessful value)? successful,
+    TResult Function(CreateReviewError value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateReviewCopyWith<$Res> {
+  factory $CreateReviewCopyWith(
+          CreateReview value, $Res Function(CreateReview) then) =
+      _$CreateReviewCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CreateReviewCopyWithImpl<$Res> implements $CreateReviewCopyWith<$Res> {
+  _$CreateReviewCopyWithImpl(this._value, this._then);
+
+  final CreateReview _value;
+  // ignore: unused_field
+  final $Res Function(CreateReview) _then;
+}
+
+/// @nodoc
+abstract class $CreateReviewStartCopyWith<$Res> {
+  factory $CreateReviewStartCopyWith(
+          CreateReviewStart value, $Res Function(CreateReviewStart) then) =
+      _$CreateReviewStartCopyWithImpl<$Res>;
+  $Res call({String text});
+}
+
+/// @nodoc
+class _$CreateReviewStartCopyWithImpl<$Res>
+    extends _$CreateReviewCopyWithImpl<$Res>
+    implements $CreateReviewStartCopyWith<$Res> {
+  _$CreateReviewStartCopyWithImpl(
+      CreateReviewStart _value, $Res Function(CreateReviewStart) _then)
+      : super(_value, (v) => _then(v as CreateReviewStart));
+
+  @override
+  CreateReviewStart get _value => super._value as CreateReviewStart;
+
+  @override
+  $Res call({
+    Object? text = freezed,
+  }) {
+    return _then(CreateReviewStart(
+      text == freezed
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CreateReviewStart implements CreateReviewStart {
+  const _$CreateReviewStart(this.text);
+
+  @override
+  final String text;
+
+  @override
+  String toString() {
+    return 'CreateReview(text: $text)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CreateReviewStart &&
+            (identical(other.text, text) ||
+                const DeepCollectionEquality().equals(other.text, text)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(text);
+
+  @JsonKey(ignore: true)
+  @override
+  $CreateReviewStartCopyWith<CreateReviewStart> get copyWith =>
+      _$CreateReviewStartCopyWithImpl<CreateReviewStart>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String text) $default, {
+    required TResult Function() successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) {
+    return $default(text);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String text)? $default, {
+    TResult Function()? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(text);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(CreateReviewStart value) $default, {
+    required TResult Function(CreateReviewSuccessful value) successful,
+    required TResult Function(CreateReviewError value) error,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(CreateReviewStart value)? $default, {
+    TResult Function(CreateReviewSuccessful value)? successful,
+    TResult Function(CreateReviewError value)? error,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreateReviewStart implements CreateReview {
+  const factory CreateReviewStart(String text) = _$CreateReviewStart;
+
+  String get text => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CreateReviewStartCopyWith<CreateReviewStart> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CreateReviewSuccessfulCopyWith<$Res> {
+  factory $CreateReviewSuccessfulCopyWith(CreateReviewSuccessful value,
+          $Res Function(CreateReviewSuccessful) then) =
+      _$CreateReviewSuccessfulCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$CreateReviewSuccessfulCopyWithImpl<$Res>
+    extends _$CreateReviewCopyWithImpl<$Res>
+    implements $CreateReviewSuccessfulCopyWith<$Res> {
+  _$CreateReviewSuccessfulCopyWithImpl(CreateReviewSuccessful _value,
+      $Res Function(CreateReviewSuccessful) _then)
+      : super(_value, (v) => _then(v as CreateReviewSuccessful));
+
+  @override
+  CreateReviewSuccessful get _value => super._value as CreateReviewSuccessful;
+}
+
+/// @nodoc
+
+class _$CreateReviewSuccessful implements CreateReviewSuccessful {
+  const _$CreateReviewSuccessful();
+
+  @override
+  String toString() {
+    return 'CreateReview.successful()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is CreateReviewSuccessful);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String text) $default, {
+    required TResult Function() successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) {
+    return successful();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String text)? $default, {
+    TResult Function()? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) {
+    if (successful != null) {
+      return successful();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(CreateReviewStart value) $default, {
+    required TResult Function(CreateReviewSuccessful value) successful,
+    required TResult Function(CreateReviewError value) error,
+  }) {
+    return successful(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(CreateReviewStart value)? $default, {
+    TResult Function(CreateReviewSuccessful value)? successful,
+    TResult Function(CreateReviewError value)? error,
+    required TResult orElse(),
+  }) {
+    if (successful != null) {
+      return successful(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreateReviewSuccessful implements CreateReview {
+  const factory CreateReviewSuccessful() = _$CreateReviewSuccessful;
+}
+
+/// @nodoc
+abstract class $CreateReviewErrorCopyWith<$Res> {
+  factory $CreateReviewErrorCopyWith(
+          CreateReviewError value, $Res Function(CreateReviewError) then) =
+      _$CreateReviewErrorCopyWithImpl<$Res>;
+  $Res call({Object error, StackTrace stackTrace});
+}
+
+/// @nodoc
+class _$CreateReviewErrorCopyWithImpl<$Res>
+    extends _$CreateReviewCopyWithImpl<$Res>
+    implements $CreateReviewErrorCopyWith<$Res> {
+  _$CreateReviewErrorCopyWithImpl(
+      CreateReviewError _value, $Res Function(CreateReviewError) _then)
+      : super(_value, (v) => _then(v as CreateReviewError));
+
+  @override
+  CreateReviewError get _value => super._value as CreateReviewError;
+
+  @override
+  $Res call({
+    Object? error = freezed,
+    Object? stackTrace = freezed,
+  }) {
+    return _then(CreateReviewError(
+      error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Object,
+      stackTrace == freezed
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace,
+    ));
+  }
+}
+
+/// @nodoc
+
+@Implements(ErrorAction)
+class _$CreateReviewError implements CreateReviewError {
+  const _$CreateReviewError(this.error, this.stackTrace);
+
+  @override
+  final Object error;
+  @override
+  final StackTrace stackTrace;
+
+  @override
+  String toString() {
+    return 'CreateReview.error(error: $error, stackTrace: $stackTrace)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CreateReviewError &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.stackTrace, stackTrace) ||
+                const DeepCollectionEquality()
+                    .equals(other.stackTrace, stackTrace)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(stackTrace);
+
+  @JsonKey(ignore: true)
+  @override
+  $CreateReviewErrorCopyWith<CreateReviewError> get copyWith =>
+      _$CreateReviewErrorCopyWithImpl<CreateReviewError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(String text) $default, {
+    required TResult Function() successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) {
+    return error(this.error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(String text)? $default, {
+    TResult Function()? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error, stackTrace);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(CreateReviewStart value) $default, {
+    required TResult Function(CreateReviewSuccessful value) successful,
+    required TResult Function(CreateReviewError value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(CreateReviewStart value)? $default, {
+    TResult Function(CreateReviewSuccessful value)? successful,
+    TResult Function(CreateReviewError value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CreateReviewError implements CreateReview, ErrorAction {
+  const factory CreateReviewError(Object error, StackTrace stackTrace) =
+      _$CreateReviewError;
+
+  Object get error => throw _privateConstructorUsedError;
+  StackTrace get stackTrace => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CreateReviewErrorCopyWith<CreateReviewError> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 class _$GetMoviesTearOff {
   const _$GetMoviesTearOff();
 
