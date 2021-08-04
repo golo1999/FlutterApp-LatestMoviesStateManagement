@@ -22,6 +22,10 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
   Iterable<Object?> serialize(Serializers serializers, AppState object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[
+      'usersList',
+      serializers.serialize(object.usersList,
+          specifiedType: const FullType(BuiltMap,
+              const [const FullType(String), const FullType(AppUser)])),
       'moviesList',
       serializers.serialize(object.moviesList,
           specifiedType:
@@ -62,6 +66,11 @@ class _$AppStateSerializer implements StructuredSerializer<AppState> {
         case 'user':
           result.user.replace(serializers.deserialize(value,
               specifiedType: const FullType(AppUser))! as AppUser);
+          break;
+        case 'usersList':
+          result.usersList.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltMap,
+                  const [const FullType(String), const FullType(AppUser)]))!);
           break;
         case 'moviesList':
           result.moviesList.replace(serializers.deserialize(value,
@@ -530,6 +539,8 @@ class _$AppState extends AppState {
   @override
   final AppUser? user;
   @override
+  final BuiltMap<String, AppUser> usersList;
+  @override
   final BuiltList<Movie> moviesList;
   @override
   final BuiltList<Review> reviewsList;
@@ -541,10 +552,12 @@ class _$AppState extends AppState {
 
   _$AppState._(
       {this.user,
+      required this.usersList,
       required this.moviesList,
       required this.reviewsList,
       this.selectedMovieId})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(usersList, 'AppState', 'usersList');
     BuiltValueNullFieldError.checkNotNull(moviesList, 'AppState', 'moviesList');
     BuiltValueNullFieldError.checkNotNull(
         reviewsList, 'AppState', 'reviewsList');
@@ -562,6 +575,7 @@ class _$AppState extends AppState {
     if (identical(other, this)) return true;
     return other is AppState &&
         user == other.user &&
+        usersList == other.usersList &&
         moviesList == other.moviesList &&
         reviewsList == other.reviewsList &&
         selectedMovieId == other.selectedMovieId;
@@ -570,7 +584,9 @@ class _$AppState extends AppState {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, user.hashCode), moviesList.hashCode),
+        $jc(
+            $jc($jc($jc(0, user.hashCode), usersList.hashCode),
+                moviesList.hashCode),
             reviewsList.hashCode),
         selectedMovieId.hashCode));
   }
@@ -579,6 +595,7 @@ class _$AppState extends AppState {
   String toString() {
     return (newBuiltValueToStringHelper('AppState')
           ..add('user', user)
+          ..add('usersList', usersList)
           ..add('moviesList', moviesList)
           ..add('reviewsList', reviewsList)
           ..add('selectedMovieId', selectedMovieId))
@@ -592,6 +609,12 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
   AppUserBuilder? _user;
   AppUserBuilder get user => _$this._user ??= new AppUserBuilder();
   set user(AppUserBuilder? user) => _$this._user = user;
+
+  MapBuilder<String, AppUser>? _usersList;
+  MapBuilder<String, AppUser> get usersList =>
+      _$this._usersList ??= new MapBuilder<String, AppUser>();
+  set usersList(MapBuilder<String, AppUser>? usersList) =>
+      _$this._usersList = usersList;
 
   ListBuilder<Movie>? _moviesList;
   ListBuilder<Movie> get moviesList =>
@@ -616,6 +639,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
     final $v = _$v;
     if ($v != null) {
       _user = $v.user?.toBuilder();
+      _usersList = $v.usersList.toBuilder();
       _moviesList = $v.moviesList.toBuilder();
       _reviewsList = $v.reviewsList.toBuilder();
       _selectedMovieId = $v.selectedMovieId;
@@ -642,6 +666,7 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
       _$result = _$v ??
           new _$AppState._(
               user: _user?.build(),
+              usersList: usersList.build(),
               moviesList: moviesList.build(),
               reviewsList: reviewsList.build(),
               selectedMovieId: selectedMovieId);
@@ -650,6 +675,8 @@ class AppStateBuilder implements Builder<AppState, AppStateBuilder> {
       try {
         _$failedField = 'user';
         _user?.build();
+        _$failedField = 'usersList';
+        usersList.build();
         _$failedField = 'moviesList';
         moviesList.build();
         _$failedField = 'reviewsList';

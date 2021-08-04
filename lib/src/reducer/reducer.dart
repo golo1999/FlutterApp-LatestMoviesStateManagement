@@ -15,6 +15,9 @@ Reducer<AppState> reducer = combineReducers(
     TypedReducer<AppState, GetReviews>(_getReviews),
     TypedReducer<AppState, GetReviewsSuccessful>(_getReviewsSuccessful),
     TypedReducer<AppState, GetReviewsError>(_getReviewsError),
+    TypedReducer<AppState, GetUsers>(_getUsers),
+    TypedReducer<AppState, GetUsersSuccessful>(_getUsersSuccessful),
+    TypedReducer<AppState, GetUsersError>(_getUsersError),
     TypedReducer<AppState, SetSelectedMovie>(_setSelectedMovie),
     TypedReducer<AppState, InitializeApp>(_initializeApp),
     TypedReducer<AppState, InitializeAppSuccessful>(_initializeAppSuccessful),
@@ -65,6 +68,30 @@ AppState _getReviewsSuccessful(AppState state, GetReviewsSuccessful action) {
 }
 
 AppState _getReviewsError(AppState state, GetReviewsError action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
+  );
+}
+
+AppState _getUsers(AppState state, GetUsers action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {},
+  );
+}
+
+AppState _getUsersSuccessful(AppState state, GetUsersSuccessful action) {
+  return state.rebuild(
+    (AppStateBuilder builder) {
+      builder.usersList.clear();
+
+      for (final AppUser user in action.usersList) {
+        builder.usersList[user.uid] = user;
+      }
+    },
+  );
+}
+
+AppState _getUsersError(AppState state, GetUsersError action) {
   return state.rebuild(
     (AppStateBuilder builder) {},
   );

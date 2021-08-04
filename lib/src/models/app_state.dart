@@ -9,6 +9,8 @@ abstract class AppState implements Built<AppState, AppStateBuilder> {
 
   AppUser? get user;
 
+  BuiltMap<String, AppUser> get usersList;
+
   BuiltList<Movie> get moviesList;
 
   BuiltList<Review> get reviewsList;

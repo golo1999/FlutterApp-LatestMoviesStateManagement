@@ -50,6 +50,20 @@ class AuthAPI {
     return AppUser.fromJson(documentSnapshot.data());
   }
 
+  Future<List<AppUser>> getAllUsers(List<String> uidList) async {
+    final List<AppUser> usersList = <AppUser>[];
+
+    for (final String uid in uidList) {
+      final DocumentSnapshot<Map<String, dynamic>> snapshot = await _firestore //
+          .doc('users/$uid')
+          .get();
+
+      usersList.add(AppUser.fromJson(snapshot.data()));
+    }
+
+    return usersList;
+  }
+
   Future<void> signOutCurrentUser() async {
     await _auth.signOut();
   }

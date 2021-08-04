@@ -1273,6 +1273,457 @@ abstract class GetReviewsError implements GetReviews, ErrorAction {
 }
 
 /// @nodoc
+class _$GetUsersTearOff {
+  const _$GetUsersTearOff();
+
+  GetUsersStart call(List<String> uidList) {
+    return GetUsersStart(
+      uidList,
+    );
+  }
+
+  GetUsersSuccessful successful(List<AppUser> usersList) {
+    return GetUsersSuccessful(
+      usersList,
+    );
+  }
+
+  GetUsersError error(Object error, StackTrace stackTrace) {
+    return GetUsersError(
+      error,
+      stackTrace,
+    );
+  }
+}
+
+/// @nodoc
+const $GetUsers = _$GetUsersTearOff();
+
+/// @nodoc
+mixin _$GetUsers {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(List<String> uidList) $default, {
+    required TResult Function(List<AppUser> usersList) successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(List<String> uidList)? $default, {
+    TResult Function(List<AppUser> usersList)? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(GetUsersStart value) $default, {
+    required TResult Function(GetUsersSuccessful value) successful,
+    required TResult Function(GetUsersError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(GetUsersStart value)? $default, {
+    TResult Function(GetUsersSuccessful value)? successful,
+    TResult Function(GetUsersError value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GetUsersCopyWith<$Res> {
+  factory $GetUsersCopyWith(GetUsers value, $Res Function(GetUsers) then) =
+      _$GetUsersCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$GetUsersCopyWithImpl<$Res> implements $GetUsersCopyWith<$Res> {
+  _$GetUsersCopyWithImpl(this._value, this._then);
+
+  final GetUsers _value;
+  // ignore: unused_field
+  final $Res Function(GetUsers) _then;
+}
+
+/// @nodoc
+abstract class $GetUsersStartCopyWith<$Res> {
+  factory $GetUsersStartCopyWith(
+          GetUsersStart value, $Res Function(GetUsersStart) then) =
+      _$GetUsersStartCopyWithImpl<$Res>;
+  $Res call({List<String> uidList});
+}
+
+/// @nodoc
+class _$GetUsersStartCopyWithImpl<$Res> extends _$GetUsersCopyWithImpl<$Res>
+    implements $GetUsersStartCopyWith<$Res> {
+  _$GetUsersStartCopyWithImpl(
+      GetUsersStart _value, $Res Function(GetUsersStart) _then)
+      : super(_value, (v) => _then(v as GetUsersStart));
+
+  @override
+  GetUsersStart get _value => super._value as GetUsersStart;
+
+  @override
+  $Res call({
+    Object? uidList = freezed,
+  }) {
+    return _then(GetUsersStart(
+      uidList == freezed
+          ? _value.uidList
+          : uidList // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetUsersStart implements GetUsersStart {
+  const _$GetUsersStart(this.uidList);
+
+  @override
+  final List<String> uidList;
+
+  @override
+  String toString() {
+    return 'GetUsers(uidList: $uidList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is GetUsersStart &&
+            (identical(other.uidList, uidList) ||
+                const DeepCollectionEquality().equals(other.uidList, uidList)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(uidList);
+
+  @JsonKey(ignore: true)
+  @override
+  $GetUsersStartCopyWith<GetUsersStart> get copyWith =>
+      _$GetUsersStartCopyWithImpl<GetUsersStart>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(List<String> uidList) $default, {
+    required TResult Function(List<AppUser> usersList) successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) {
+    return $default(uidList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(List<String> uidList)? $default, {
+    TResult Function(List<AppUser> usersList)? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(uidList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(GetUsersStart value) $default, {
+    required TResult Function(GetUsersSuccessful value) successful,
+    required TResult Function(GetUsersError value) error,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(GetUsersStart value)? $default, {
+    TResult Function(GetUsersSuccessful value)? successful,
+    TResult Function(GetUsersError value)? error,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetUsersStart implements GetUsers {
+  const factory GetUsersStart(List<String> uidList) = _$GetUsersStart;
+
+  List<String> get uidList => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GetUsersStartCopyWith<GetUsersStart> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GetUsersSuccessfulCopyWith<$Res> {
+  factory $GetUsersSuccessfulCopyWith(
+          GetUsersSuccessful value, $Res Function(GetUsersSuccessful) then) =
+      _$GetUsersSuccessfulCopyWithImpl<$Res>;
+  $Res call({List<AppUser> usersList});
+}
+
+/// @nodoc
+class _$GetUsersSuccessfulCopyWithImpl<$Res>
+    extends _$GetUsersCopyWithImpl<$Res>
+    implements $GetUsersSuccessfulCopyWith<$Res> {
+  _$GetUsersSuccessfulCopyWithImpl(
+      GetUsersSuccessful _value, $Res Function(GetUsersSuccessful) _then)
+      : super(_value, (v) => _then(v as GetUsersSuccessful));
+
+  @override
+  GetUsersSuccessful get _value => super._value as GetUsersSuccessful;
+
+  @override
+  $Res call({
+    Object? usersList = freezed,
+  }) {
+    return _then(GetUsersSuccessful(
+      usersList == freezed
+          ? _value.usersList
+          : usersList // ignore: cast_nullable_to_non_nullable
+              as List<AppUser>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetUsersSuccessful implements GetUsersSuccessful {
+  const _$GetUsersSuccessful(this.usersList);
+
+  @override
+  final List<AppUser> usersList;
+
+  @override
+  String toString() {
+    return 'GetUsers.successful(usersList: $usersList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is GetUsersSuccessful &&
+            (identical(other.usersList, usersList) ||
+                const DeepCollectionEquality()
+                    .equals(other.usersList, usersList)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(usersList);
+
+  @JsonKey(ignore: true)
+  @override
+  $GetUsersSuccessfulCopyWith<GetUsersSuccessful> get copyWith =>
+      _$GetUsersSuccessfulCopyWithImpl<GetUsersSuccessful>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(List<String> uidList) $default, {
+    required TResult Function(List<AppUser> usersList) successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) {
+    return successful(usersList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(List<String> uidList)? $default, {
+    TResult Function(List<AppUser> usersList)? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) {
+    if (successful != null) {
+      return successful(usersList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(GetUsersStart value) $default, {
+    required TResult Function(GetUsersSuccessful value) successful,
+    required TResult Function(GetUsersError value) error,
+  }) {
+    return successful(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(GetUsersStart value)? $default, {
+    TResult Function(GetUsersSuccessful value)? successful,
+    TResult Function(GetUsersError value)? error,
+    required TResult orElse(),
+  }) {
+    if (successful != null) {
+      return successful(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetUsersSuccessful implements GetUsers {
+  const factory GetUsersSuccessful(List<AppUser> usersList) =
+      _$GetUsersSuccessful;
+
+  List<AppUser> get usersList => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GetUsersSuccessfulCopyWith<GetUsersSuccessful> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $GetUsersErrorCopyWith<$Res> {
+  factory $GetUsersErrorCopyWith(
+          GetUsersError value, $Res Function(GetUsersError) then) =
+      _$GetUsersErrorCopyWithImpl<$Res>;
+  $Res call({Object error, StackTrace stackTrace});
+}
+
+/// @nodoc
+class _$GetUsersErrorCopyWithImpl<$Res> extends _$GetUsersCopyWithImpl<$Res>
+    implements $GetUsersErrorCopyWith<$Res> {
+  _$GetUsersErrorCopyWithImpl(
+      GetUsersError _value, $Res Function(GetUsersError) _then)
+      : super(_value, (v) => _then(v as GetUsersError));
+
+  @override
+  GetUsersError get _value => super._value as GetUsersError;
+
+  @override
+  $Res call({
+    Object? error = freezed,
+    Object? stackTrace = freezed,
+  }) {
+    return _then(GetUsersError(
+      error == freezed
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Object,
+      stackTrace == freezed
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace,
+    ));
+  }
+}
+
+/// @nodoc
+
+@Implements(ErrorAction)
+class _$GetUsersError implements GetUsersError {
+  const _$GetUsersError(this.error, this.stackTrace);
+
+  @override
+  final Object error;
+  @override
+  final StackTrace stackTrace;
+
+  @override
+  String toString() {
+    return 'GetUsers.error(error: $error, stackTrace: $stackTrace)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is GetUsersError &&
+            (identical(other.error, error) ||
+                const DeepCollectionEquality().equals(other.error, error)) &&
+            (identical(other.stackTrace, stackTrace) ||
+                const DeepCollectionEquality()
+                    .equals(other.stackTrace, stackTrace)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(error) ^
+      const DeepCollectionEquality().hash(stackTrace);
+
+  @JsonKey(ignore: true)
+  @override
+  $GetUsersErrorCopyWith<GetUsersError> get copyWith =>
+      _$GetUsersErrorCopyWithImpl<GetUsersError>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(List<String> uidList) $default, {
+    required TResult Function(List<AppUser> usersList) successful,
+    required TResult Function(Object error, StackTrace stackTrace) error,
+  }) {
+    return error(this.error, stackTrace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(List<String> uidList)? $default, {
+    TResult Function(List<AppUser> usersList)? successful,
+    TResult Function(Object error, StackTrace stackTrace)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this.error, stackTrace);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(GetUsersStart value) $default, {
+    required TResult Function(GetUsersSuccessful value) successful,
+    required TResult Function(GetUsersError value) error,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(GetUsersStart value)? $default, {
+    TResult Function(GetUsersSuccessful value)? successful,
+    TResult Function(GetUsersError value)? error,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetUsersError implements GetUsers, ErrorAction {
+  const factory GetUsersError(Object error, StackTrace stackTrace) =
+      _$GetUsersError;
+
+  Object get error => throw _privateConstructorUsedError;
+  StackTrace get stackTrace => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $GetUsersErrorCopyWith<GetUsersError> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 class _$InitializeAppTearOff {
   const _$InitializeAppTearOff();
 

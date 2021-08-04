@@ -180,27 +180,35 @@ class MovieDetails extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            ReviewsContainer(builder: (BuildContext context, List<Review> reviewsList) {
-                              return ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final Review review = reviewsList[index];
+                            UsersContainer(
+                              builder: (BuildContext context, Map<String, AppUser> usersMap) {
+                                return ReviewsContainer(
+                                  builder: (BuildContext context, List<Review> reviewsList) {
+                                    return ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        final Review review = reviewsList[index];
 
-                                  print('review:' + review.toString());
+                                        final AppUser? user = usersMap[review.id];
 
-                                  return ListTile(
-                                    title: Text(
-                                      review.text,
-                                      style: const TextStyle(
-                                        color: whiteColor,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                itemCount: reviewsList.length,
-                              );
-                            }),
+                                        print('review:' + review.toString());
+
+                                        return ListTile(
+                                          title: Text(
+                                            review.text,
+                                            style: const TextStyle(
+                                              color: whiteColor,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: reviewsList.length,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),
