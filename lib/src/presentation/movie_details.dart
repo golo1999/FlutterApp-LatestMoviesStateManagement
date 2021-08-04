@@ -16,7 +16,6 @@ class MovieDetails extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: transparentColor,
-                centerTitle: true,
               ),
               body: Container(
                 width: data.size.width,
@@ -40,9 +39,9 @@ class MovieDetails extends StatelessWidget {
                           ),
                         ),
                         onTap: () {
-                          StoreProvider.of<AppState>(context).dispatch(
-                            SetSelectedMovie(movie.id),
-                          );
+                          StoreProvider.of<AppState>(context)
+                            ..dispatch(SetSelectedMovie(movie.id))
+                            ..dispatch(const GetReviews());
                           Navigator.push<void>(
                             context,
                             MaterialPageRoute<void>(
@@ -162,21 +161,32 @@ class MovieDetails extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            OutlinedButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, user == null ? loginRoute : addReviewRoute);
-                              },
-                              child: Text(
-                                'Add review',
-                                style: TextStyle(
-                                  color: whiteColor,
-                                  fontSize: data.size.width * 0.05,
-                                ),
-                                textAlign: TextAlign.center,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 16.0,
+                                horizontal: 0,
                               ),
-                              style: OutlinedButton.styleFrom(
-                                side: const BorderSide(
-                                  color: whiteColor,
+                              child: OutlinedButton(
+                                onPressed: () async {
+                                  await Navigator.pushNamed(context, user == null ? loginRoute : addReviewRoute);
+
+                                  StoreProvider.of<AppState>(context).dispatch(const GetReviews());
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Add review',
+                                    style: TextStyle(
+                                      color: whiteColor,
+                                      fontSize: data.size.width * 0.05,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(
+                                    color: whiteColor,
+                                  ),
                                 ),
                               ),
                             ),
@@ -184,26 +194,66 @@ class MovieDetails extends StatelessWidget {
                               builder: (BuildContext context, Map<String, AppUser> usersMap) {
                                 return ReviewsContainer(
                                   builder: (BuildContext context, List<Review> reviewsList) {
-                                    return ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      shrinkWrap: true,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        final Review review = reviewsList[index];
+                                    final DateFormat format = DateFormat.yMMMMEEEEd().add_Hms();
 
-                                        final AppUser? user = usersMap[review.id];
+                                    if (reviewsList.isEmpty) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0,
+                                          horizontal: 0,
+                                        ),
+                                        child: Text(
+                                          'No reviews available',
+                                          style: TextStyle(
+                                            color: whiteColor,
+                                            fontSize: data.size.width * 0.075,
+                                          ),
+                                        ),
+                                      );
+                                    }
 
-                                        print('review:' + review.toString());
-
-                                        return ListTile(
-                                          title: Text(
-                                            review.text,
-                                            style: const TextStyle(
+                                    return Padding(
+                                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: <Widget>[
+                                          Text(
+                                            'Reviews',
+                                            style: TextStyle(
                                               color: whiteColor,
+                                              fontSize: data.size.width * 0.075,
                                             ),
                                           ),
-                                        );
-                                      },
-                                      itemCount: reviewsList.length,
+                                          ListView.builder(
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            padding: EdgeInsets.zero,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              final Review review = reviewsList[index];
+
+                                              final AppUser? user = usersMap[review.uid];
+
+                                              return ListTile(
+                                                leading: user != null ? UserAvatar(user: user) : null,
+                                                title: Text(
+                                                  review.text,
+                                                  style: const TextStyle(
+                                                    color: whiteColor,
+                                                  ),
+                                                ),
+                                                subtitle: Text(
+                                                  format.format(review.createdAt.toLocal()),
+                                                  style: const TextStyle(
+                                                    color: whiteColor,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            itemCount: reviewsList.length,
+                                          )
+                                        ],
+                                      ),
                                     );
                                   },
                                 );
@@ -216,12 +266,6 @@ class MovieDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              // floatingActionButton: FloatingActionButton.extended(
-              //   onPressed: () {},
-              //   icon: const Icon(Icons.message_outlined),
-              //   label: const Text('Review'),
-              // ),
-              // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
               extendBodyBehindAppBar: true,
             );
           },

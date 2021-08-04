@@ -1,13 +1,17 @@
 part of presentations;
 
 class UserAvatar extends StatelessWidget {
-  const UserAvatar({Key? key}) : super(key: key);
+  const UserAvatar({Key? key, this.user}) : super(key: key);
+
+  final AppUser? user;
 
   @override
   Widget build(BuildContext context) {
     return UserContainer(
       builder: (BuildContext context, AppUser? user) {
-        if (user == null) {
+        final AppUser? currentUser = this.user ?? user;
+
+        if (currentUser == null) {
           return GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, loginRoute);
@@ -35,7 +39,7 @@ class UserAvatar extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: whiteColor,
                 child: Text(
-                  user.username[0].toUpperCase(),
+                  currentUser.username[0].toUpperCase(),
                   style: const TextStyle(color: primaryColor),
                 ),
               ),

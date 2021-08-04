@@ -85,6 +85,7 @@ AppState _getUsersSuccessful(AppState state, GetUsersSuccessful action) {
       builder.usersList.clear();
 
       for (final AppUser user in action.usersList) {
+        print('user:' + user.uid);
         builder.usersList[user.uid] = user;
       }
     },

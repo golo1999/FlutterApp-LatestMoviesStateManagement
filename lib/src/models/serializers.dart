@@ -9,6 +9,7 @@ part 'serializers.g.dart';
   AppState,
   Movie,
   Review,
+  Torrent,
 ])
 Serializers serializers = (_$serializers.toBuilder() //
       ..addPlugin(StandardJsonPlugin()))

@@ -28,15 +28,18 @@ class AppEpics {
 
   Stream<AppAction> _createReview(Stream<CreateReviewStart> actions, EpicStore<AppState> store) {
     return actions //
-        .asyncMap((CreateReviewStart action) {
-          return _moviesAPI.createReview(
-            uid: store.state.user!.uid,
-            movieId: store.state.selectedMovieId!,
-            text: action.text,
-          );
-        })
-        .map((_) => const CreateReview.successful())
-        .onErrorReturnWith((Object error, StackTrace stackTrace) => CreateReview.error(error, stackTrace));
+        .flatMap((CreateReviewStart action) => Stream<void>.value(null).asyncMap((_) {
+              return _moviesAPI.createReview(
+                uid: store.state.user!.uid,
+                movieId: store.state.selectedMovieId!,
+                text: action.text,
+              );
+            }).expand((_) {
+              return <AppAction>[
+                const CreateReview.successful(),
+                const GetReviews(),
+              ];
+            }).onErrorReturnWith((Object error, StackTrace stackTrace) => CreateReview.error(error, stackTrace)));
   }
 
   Stream<AppAction> _getMovies(Stream<GetMoviesStart> actions, EpicStore<AppState> store) {
@@ -51,9 +54,10 @@ class AppEpics {
     return actions //
         .flatMap((GetReviewsStart action) => Stream<void>.value(null)
                 .asyncMap((_) => _moviesAPI.getReviews(store.state.selectedMovieId!))
-                .expand((List<Review> reviewsList) {
+                .expand((List<Review> reviews) {
               return <AppAction>[
-                GetReviewsSuccessful(reviewsList),
+                GetReviews.successful(reviews),
+                GetUsers(reviews.map((Review review) => review.uid).toSet().toList()),
               ];
             }).onErrorReturnWith((Object error, StackTrace stackTrace) => GetReviews.error(error, stackTrace)));
   }
